@@ -1,0 +1,212 @@
+{
+	"info": {
+		"name": "FakeAPI",
+		"_postman_id": "3af3db28-9acd-4071-a8e6-91c079a9f838",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Sample Req",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "87fe7fcf-d625-4157-ba68-7174bed7ddbf",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Verify status code\",function(){",
+							"    pm.expect(pm.response.code).to.equal(200);",
+							"    console.log(\"The response code is\"+pm.response.code);",
+							"});",
+							"pm.test(\"verify userId\",function(){",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0].userId).to.eql(1);",
+							"    pm.environment.set(\"user_id\",jsonData[0].userId);",
+							"    user_id=pm.environment.get(\"user_id\");",
+							"    console.log(\"The user id from evn varialble is \"+user_id);",
+							"    var size=jsonData.length;",
+							"     console.log(\"The userid is \"+jsonData[0].userId);",
+							"     console.log(\"The size is \"+size);",
+							"     for(i=0;i<size;i++){",
+							"         console.log(\"The size is \"+jsonData[i].title);",
+							"     }",
+							"});",
+							"pm.test(\"verify title\",function(){",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0].title).to.eql(\"sunt aut facere repellat provident occaecati excepturi optio reprehenderit\");",
+							"    console.log(\"The Title is\"+jsonData[0].title);",
+							"});",
+							"",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Sample 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9f04ebdc-61cd-47ff-aa07-6724ad0da70e",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Verify size of response\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(10);",
+							"    console.log(\"The size of the json data is \"+jsonData.length);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts?userId={{user_id}}",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "{{user_id}}",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "sample 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4245546e-ebfd-4ddf-ad71-aa2fbc92c4a3",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"verify email\",function(){",
+							"    var jsonData=pm.response.json();",
+							"    pm.environment.set(\"email\", jsonData[0].email);",
+							"    var email_id=pm.environment.get(\"email\");",
+							"    console.log(\"The Email id \"+email_id);",
+							"    pm.expect(email_id).to.eq(\"Eliseo@gardner.biz\");",
+							"});",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/comments?postId=1",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"comments"
+					],
+					"query": [
+						{
+							"key": "postId",
+							"value": "1",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "sample 4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a2310461-70ea-443e-a094-e16020dd82e1",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"verify email\",function(){",
+							"    var jsonData=pm.response.json();",
+							"    console.log(\"The Email id \"+jsonData[0].email);",
+							"    pm.expect(jsonData[0].email).to.eq(\"Eliseo@gardner.biz\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/comments?email={{email}}",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"comments"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "{{email}}",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
